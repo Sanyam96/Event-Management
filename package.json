@@ -1,0 +1,15 @@
+{
+  "name": "eventmanagement",
+  "version": "0.1.0",
+  "description": "Event Management in Node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  }
+}
