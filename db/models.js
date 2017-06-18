@@ -1,3 +1,5 @@
+// DB MODELS where DB model is defined!!!
+
 const Sequelize = require('sequelize');
 
 const db = new Sequelize({
@@ -81,13 +83,18 @@ Event.hasMany(EventInvitee);		// A single Event has multiple EventInvitee
 EventInvitee.belongsTo(Invitee);	// An EventInvitee belongs to a Invitee
 Invitee.hasMany(EventInvitee);		// A single Invitee has many EventInvitee
 // id of one event -> many invitee
-// id of one invitee -> many events!
+// id of one invitee -> many events!S
 // ---------------
 
 
-db.sync({force: false}).then(() => {
+db.sync({force: false})
+    .then(() => {
     console.log('Database is synchronised');
-});
+    })
+    .catch((err) => {
+        console.log("Error in setting database connection");
+        console.error(err);
+    });
 
 module.exports = {
     Event, 

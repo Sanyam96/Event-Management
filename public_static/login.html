@@ -2,9 +2,21 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Login</title>
+	<title>Login Page</title>
 </head>
 <body>
+	<form action="/login" method="post">
+		<input type="text" name="username" placeholder="username">
+		<br>
+		<input type="password" name="password" placeholder="password">
+		<br>
+		<input type="submit" value="Login">
+	</form>
+
+	<div>
+		<p>Create Account</p>
+		<a href="/signup.html">Sign up</a>
+	</div>
 
 </body>
 </html>
