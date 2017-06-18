@@ -80,6 +80,8 @@ EventInvitee.belongsTo(Event);		// A single EventInvitee belongs to a Single Eve
 Event.hasMany(EventInvitee);		// A single Event has multiple EventInvitee
 EventInvitee.belongsTo(Invitee);	// An EventInvitee belongs to a Invitee
 Invitee.hasMany(EventInvitee);		// A single Invitee has many EventInvitee
+// id of one event -> many invitee
+// id of one invitee -> many events!
 // ---------------
 
 
