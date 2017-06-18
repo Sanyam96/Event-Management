@@ -8,18 +8,24 @@ route.get('/', (req, res) => {
 	Event
 		.findAll()
 		.then((events) => {
-			res.status(200).send(events)
+			res
+			   .status(200)
+			   .send(events)
 		})
 		.catch((err) => {
 			console.log(err);
-			res.status(500).send("Error in retrieving events")
+			res
+			.status(500)
+			.send("Error in retrieving events")
 		})
 });
 
 route.post('/new', (req, res) => {
 	// res.send("Post add new events")
 	if(!req.body.title){
-		return res.status(403).send('Event cannot created without Title.. Please add Title to event!!')
+		return res
+			   .status(403)
+			   .send('Event cannot created without Title.. Please add Title to event!!')
 	}
 
 	// Date format expected from frontend
@@ -50,12 +56,18 @@ route.get('/:id', (req, res) => {
     	.findByPrimary(req.params.id)
         .then((event) => {
             if (!event) {
-                return res.status(500).send("No such event found")
+                return res
+                		.status(500)
+                		.send("No such event found")
             }
-            res.status(200).send(event);
+            res
+            .status(200)
+            .send(event);
         })
         .catch((err) => {
-            res.status(500).send('Error finding event')
+            res
+            .status(500)
+            .send('Error finding event')
         })
 });
 
