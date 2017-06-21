@@ -1,6 +1,6 @@
-const router = require('express').Router;
+const route = require('express').Router();
 
-const route = router();
+// const route = router();
 
 route.use('/events', require('./events'));
 

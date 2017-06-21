@@ -3,9 +3,9 @@
 const Sequelize = require('sequelize');
 
 const db = new Sequelize({
-	username : 'eventman',
-	password : 'eventadmin',
-	database : 'eventpass',
+	username : 'eventadmin',
+    password : 'eventpass',
+    database : 'eventman',
 	host : 'localhost',
 	dialect : 'mysql',
 	pool : {
@@ -67,6 +67,23 @@ const EventInvitee = db.define('eventinvitee', {
 });
 // ------------
 
+const AuthToken = db.define('authtoken', {
+    id : {
+        type : Sequelize.INTEGER,
+        primaryKey : true,
+        autoIncrement : true
+    },
+    token : {
+        type : Sequelize.STRING,
+        unique : true,
+        index : true
+    }
+});
+
+AuthToken.belongsTo(User);
+User.hasMany(AuthToken);
+
+
 
 // relationships of tables
 Event.belongsTo(User, {				// A single Event belongs to a User as host(one to one)
@@ -89,7 +106,7 @@ Invitee.hasMany(EventInvitee);		// A single Invitee has many EventInvitee
 
 db.sync({force: false})
     .then(() => {
-    console.log('Database is synchronised');
+        console.log('Database is synchronised');
     })
     .catch((err) => {
         console.log("Error in setting database connection");
@@ -100,5 +117,6 @@ module.exports = {
     Event, 
     User, 
     Invitee, 
-    EventInvitee
+    EventInvitee,
+    AuthToken
 };

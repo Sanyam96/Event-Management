@@ -1,7 +1,9 @@
 const route = require('express').Router();
-const user = require('../db/models').User;
+const User = require('../db/models').User;
 const passport = require('../auth/passport');
 const eli = require('../auth/utils').eli;
+const AuthToken = require('../db/models').AuthToken;
+const uid2 = require('uid2');
 
 
 route.post('/signup', (req, res) => {
@@ -14,7 +16,7 @@ route.post('/signup', (req, res) => {
 					 .body
 					 .email,
 
-			password : req
+			password : req 				//Password should be hashed on Production
 						.body
 						.password
 		})
@@ -28,8 +30,27 @@ route.post('/login', passport.authenticate('local', {
 	failureRedirect : '/login.html'
 }));
 
+route.get('/logout', (req, res) => {
+	req.user = null;
+	req.logout();
+	req.session.destroy(function () {
+		res.redirect('/login.html')
+	})
+});
+
 route.get('/profile', eli('/login.html'), (req, res) => {
 	res.send(req.user);
 });
 
-module.export = route;
+route.post('/token', passport.authenticate('local'), (req, res) => {
+	AuthToken
+	.create({
+		token : uid2(20),
+		userId : req.user.id
+	})
+	.then((authToken) => {
+		return res.send(authToken.token)
+	})
+});
+
+module.exports = route;

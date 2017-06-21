@@ -1,5 +1,4 @@
-const router = require('express').Router;
-const route = router();
+const route = require('express').Router();
 const Event = require('../../db/models').Event;
 
 
@@ -71,4 +70,4 @@ route.get('/:id', (req, res) => {
         })
 });
 
-module.export = route;
+module.exports = route;

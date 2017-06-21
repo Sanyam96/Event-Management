@@ -10,6 +10,6 @@ function ensureLoggedIn(redirPath) {
 	}
 }
 
-module.export = {
+module.exports = {
 	eli : ensureLoggedIn
-}
+};
