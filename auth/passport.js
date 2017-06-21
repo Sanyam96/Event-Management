@@ -1,6 +1,8 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const BearerStrategy = require('passport-http-bearer').Strategy;
 const User = require('../db/models').User;
+const AuthToken = require('../db/models').AuthToken;
 
 passport.serializeUser(function (user, done) {
 	console.log( 'Seriaizing user :' + user.id);
@@ -41,5 +43,26 @@ passport.use(new LocalStrategy (
 		})
 	})
 );
+
+passport.use(new BearerStrategy(function (token, done) {
+	AuthToken
+	.findOne({
+		where : {
+			token : token
+		},
+		include : [User]
+	})
+	.then((token) => {
+		if(!token) {
+			return done(null, false, {
+				message : 'No such token found'
+			})
+		}
+		done(null, token.user)
+	})
+	.catch((err) => {
+		return done(err)
+	})
+}));
 
 module.exports = passport;
