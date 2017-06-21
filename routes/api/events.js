@@ -3,6 +3,7 @@ const Event = require('../../db/models').Event;
 const User = require('../../db/models').User;
 const EventInvitee = require('../../db/models').EventInvitee;
 const Invitee = require('../../db/models').Invitee;
+const authUtils = require('../../auth/utils');
 
 // GET
 route.get('/', (req, res) => {
@@ -175,6 +176,23 @@ route.put('/:id', (req, res) => {
             }
 
     })
+});
+
+// DELETE
+route.delete('/:id', /*authUtils.eia(),*/ (req, res) => {
+    Event.destroy(
+        {
+            where: {
+                id: req.params.id,
+                hostId: /*req.userIsAdmin ?*/ req.user.id //: undefined
+            }
+        }).then((destroyedRows) => {
+        if (destroyedRows == 0) {
+            return res.status(403).send('Event does not exist, or you cannot edit it')
+        } else {
+            res.status(200).send('Event successfully deleted')
+        }
+	})
 });
 
 

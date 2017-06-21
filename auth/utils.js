@@ -10,6 +10,8 @@ function ensureLoggedIn(redirPath) {
 	}
 }
 
+// function of ensureAdmin()
+
 module.exports = {
 	eli : ensureLoggedIn
 };
